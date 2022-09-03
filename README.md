@@ -4,16 +4,15 @@
 
 My work asked me to have a look at the [Australian Signals Directorate (ASD) 75th anniversary coin challenge](https://www.abc.net.au/news/2022-09-01/act-spy-agency-releases-coin-with-secret-code/101391964).
 The agency is using the coin as a novel recruitment/marketing campaign.
-There are more details on the ASD website, [including high-resolution images of the coin](https://www.asd.gov.au/75th-anniversary/events/commemorative-coin-challenge).
+See its website for more details, [including higher-resolution images of the coin](https://www.asd.gov.au/75th-anniversary/events/commemorative-coin-challenge).
 
 I'm a cryptography n00b; I barely knew the difference between binary and hexadecimal numbers before this.
 But my manager told me: "Surely we should know what this coin says before we bring everyone's attention to it?"
 
 So I stumbled through the puzzles &mdash; and they were fun!
-Given that some people have already published how-to guides online, I figure it's worth writing down how I approached this with Python, in part so I don't forget what I learnt.
-(Most people seemed to use C++, because they're real programmers, or R, because they're fashionable.)
+Given that some people have already published how-to guides online, I figure it's worth writing down how I approached this with Python, partly so I don't forget what I learnt.
 
-If you want to decipher the ASD's encrypted messages yourself, stop reading and throw yourself into it!
+If you want to decipher the messages yourself, stop reading and throw yourself into it!
 But if you lack time, learn from me.
 I wasted hours on the wrong ideas (the coin [looks like a Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) but it's not) and even more hours because of a typo in my code.
 
@@ -58,8 +57,8 @@ hexcode = """
 hexcode = "".join(hexcode.splitlines()).replace(" ", "")
 ```
 
-I recorded the _weights_ of the characters in each of the two rings; each character is either light, striped or dark.
-I initially thought these weights disguised a code wheel; [some kind of a substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher).
+I recorded the _weights_ of the characters in each of the two rings &mdash; each character is either light, striped or dark.
+I first thought these weights disguised a code wheel; [some kind of a substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher).
 But if you filter the characters by weight, none of the string lengths are equal, which rules out a simple code wheel.
 
 It wasn't until I turned the coin over that I started to get somewhere:
@@ -82,9 +81,9 @@ Wikipedia tells us that the first 10 Braille characters have dual meanings: they
 | Meaning 2 | C | B | F | A | E | D |
 
 As it happens, the Braille characters used are the first six in the alphabet.
-In other words, it's highly likely that the Braille is a numeric code (`326154`) rather than a reference to Roman letters (`CBFAED`).
+It's highly unlikely this is random &mdash; the Braille is probably a numeric code (`326154`) rather than a reference to Roman letters (`CBFAED`).
 
-So, what's it mean?
+So what's it mean?
 We have `BTHASA` aligned with `326154` &hellip; a sequence?
 But if we rearrange the letters in the order of the numbers, we get a nonsense word:
 
@@ -104,7 +103,8 @@ And yes, pen and paper would have been much faster than the Python above.
 ## Puzzle 2: Atbash cipher
 
 The Atbash cipher is an ancient encryption method that was first used to conceal messages written in Hebrew.
-But it can be applied to any sequentially ordered alphabet: the cipher is the same alphabet in reverse order.
+But it can be applied to any sequentially ordered alphabet.
+The cipher is the alphabet in reverse order.
 This is how it's usually used with the Roman alphabet:
 
 | Letter | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z |
@@ -113,7 +113,8 @@ This is how it's usually used with the Roman alphabet:
 
 So `MARKUS` would be encrypted as `NZIPFH`.
 
-This is extremely simple &mdash; surely too simple for ASD? Let's go back to the tails side of the coin and try it, starting with the outside ring of characters:
+This is extremely simple &mdash; surely too simple for the ASD?
+Let's go back to the tails side of the coin and try it, starting with the outer ring of characters:
 
 ```python
 import string
@@ -140,7 +141,7 @@ But we also decoded a clue:
 
 > Find clarity in 7 width x 5 depth.
 
-At this point, I hit Google &hellip; and got a bit lost.
+At this point, I checked Google &hellip; and got a bit lost.
 I read about matrix encryption and block ciphers &mdash; they were beyond n00bish me.
 I wondered whether `CLARITY` was some kind of encryption key.
 
@@ -151,10 +152,11 @@ It seemed worth a try.
 
 This is another simple encryption method.
 You write a message into a grid/matrix (we already know it's 7 columns x 5 rows).
-However, to encrypt the message, you don't follow the usual left-to-right, top-to-bottom route when you enter characters &mdash; you take a different path.
+However, to encrypt the message, you don't follow the usual left-to-right, top-to-bottom route when you enter the characters &mdash; you take a different path.
 And if you want to *read* the message, you need to know which route, or path, to follow.
 
-A 7 x 5 matrix has 35 characters. Will that fit the next message we're trying to decode (the inner ring of characters)? Let's check:
+A 7 x 5 matrix has 35 characters. Will that fit the next message we're trying to decode: the inner ring of characters?
+Let's check:
 
 ```python
 print(len(inner_ring_characters))
@@ -214,8 +216,8 @@ In this case, it's a simple matter of top-to-bottom, left-to-right: `BELONGINGTO
 Here's code to display it all:
 
 ```python
-# use two 7 x 5 transposition ciphers to decrypt
-# a message written top-to-bottom, left-to-right
+# decode two 7 x 5 transposition ciphers, reading
+# the message top-to-bottom, left-to-right
 
 decoded_message = ""
 
@@ -230,7 +232,7 @@ print(decoded_message)
 
     BELONGINGTOAGREATTEAMSTRIVINGFOREXCELLENCEWEMAKEADIFFERENCEXORHEXA5D75
 
-Again, we got two messages:
+Again, we get  two messages from this:
 
 > Belonging to a great team striving for excellence, we make a difference.
 
@@ -239,22 +241,22 @@ More ASD value statements! My *esprit de corps* is bulging! But I'm more interes
 > XORHEXA5D75
 
 Now, if this challenge has taught me anything, it's the value of Wikipedia.
-And yes, a quick search tells me there's [such a thing as a `XOR` cipher](https://en.wikipedia.org/wiki/XOR_cipher).
+And yes, a quick search tells me there's [such a thing as a XOR cipher](https://en.wikipedia.org/wiki/XOR_cipher).
 
 ## Puzzle 4: XOR cipher
 
 XOR stands for eXclusive OR, a logical operation that you can read about elsewhere.
 In fact, you'll find dozens of XOR calculators, encoders and decoders online.
 
-The problem? Almost none of them work for this challenge.
+The problem? Almost none of them worked for me.
 
 The reason for that is the next part of the clue: `HEX`.
 It's clear this means [hexademical code](https://en.wikipedia.org/wiki/Hexadecimal).
 Scan the small characters in the centre of the coin: they're mostly numbers, with some letters thrown in.
 However, you'll note that only six letters are used: `A` through to `F`.
-So, 10 digits plus six letters makes 16 characters: all those characters are almost certainly a base 16 numeric code &mdash; a hexademical code.
+So, 10 digits plus six letters makes 16 characters: all those characters are almost certainly a base 16 numeric code &mdash; another way of saying hexademical code.
 
-The final part of the clue, `A5D75`, is also hex code &mdash; and a cute way of writing ASD75 (yes, the agency is celebrating 75 years, we get it).
+The final part of the clue, `A5D75`, is also hex code &mdash; and a cute way of writing ASD75 (happy birthday, ASD!).
 
 At this point, I'll spare you the several frustrated hours I spent reading about XOR and trying to decrypt code with a typo in it.
 This is what matters:
@@ -274,7 +276,7 @@ print(len(hexcode))
 
    382
 
-Our key length is 5 (`A5D75`), so, even if we repeat it, it won't perfectly match the hex code we're trying to decrypt (which has a length 382).
+Our key length is 5 (`A5D75`), so, even if we repeat it, it won't perfectly match the hex code we're trying to decrypt (which has a length of 382).
 Our decryption function needs to respond to that.
 
 ```python
@@ -289,7 +291,7 @@ def xorhex_cipher(message, key):
     # apply XOR operation
     code = "%x" % (int(message[:len(key) * factor], 16) ^ int(key * repeat, 16))
     
-    # is there leftover message to en/decode?
+    # is there leftover message to encode/decode?
     if len(message) % repeat > 0:
         code = code + "%x" % (int(message[-(len(message) % repeat):], 16) ^ int(key[:len(message) % repeat], 16))
 
@@ -303,14 +305,14 @@ print(bytes.fromhex(decoded_message).decode())
 
     For 75 years the Australian Signals Directorate has brought together people with the skills, adaptability and imagination to operate in the slim area between the difficult and the impossible.
 
-We did it! Our efforts yielded another corporate message!
+We did it &mdash; our efforts yielded another corporate message!
 
 > For 75 years the Australian Signals Directorate has brought together people with the skills, adaptability and imagination to operate in the slim area between the difficult and the impossible.
 
 ## Epilogue: A fifth puzzle?
 
 A day after releasing the coin, the ASD announced that [it contained a bonus message](https://www.abc.net.au/news/2022-09-02/asd-50-cent-code-cracked-by-14yo-tasmanian-boy/101401978).
-I'm not particularly keen to read it, as it's almost certainly written in LinkedIn-speak like the other messages.
+I'm not particularly keen to read it, as it's almost certainly a LinkedIn-style message like the others.
 But cracking it should be fun.
 
 The question is: where to start? One apparent place is the series of strange characters at the base of the coin's tails side:
