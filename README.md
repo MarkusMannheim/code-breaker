@@ -88,8 +88,23 @@ So, what's it mean?
 We have `BTHASA` aligned with `326154` &hellip; a sequence?
 But if we rearrange the letters in the order of the numbers, we get a nonsense word: `ATBASH`.
 
-[Hang on: is it nonsense](https://en.wikipedia.org/wiki/Atbash)? No, it's a clue!
+[Or is it nonsense](https://en.wikipedia.org/wiki/Atbash)? No, it's a clue! (Thanks again, Wikipedia.)
 
 ## Puzzle 2: Atbash cipher
+
+The Atbash cipher is an ancient, and very simple, encryption method that was first used to conceal messages written in Hebrew.
+But it can be applied to any sequentially ordered alphabet.
+This is how it would normally be used in English messages:
+
+| Letter | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Cipher | Z | Y | X | W | V | U | T | S | R | Q | P | O | N | M | L | K | J | I | H | G | F | E | D | C | B | A |
+
+So `MARKUS` would be written 
+
+
+
+
+
 
 asdasdasd
