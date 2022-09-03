@@ -6,23 +6,22 @@ My work asked me to have a look at the [Australian Signals Directorate (ASD) 75t
 The agency is using the coin as a novel recruitment/marketing campaign.
 There are more details on the ASD website, [including high-resolution images of the coin](https://www.asd.gov.au/75th-anniversary/events/commemorative-coin-challenge).
 
-I'm a cryptography n00b and always will be.
-I barely knew the difference between binary and hexadecimal numbers.
+I'm a cryptography n00b and always will be; before this, I barely knew the difference between binary and hexadecimal numbers.
 But my manager told me: "Surely we should know what this coin says before we bring everyone's attention to it?"
 
-So I stumbled through the puzzles &mdash; and had heaps of fun.
+So I stumbled through the puzzles &mdash; and they were fun!
 And given that some people have already published how-to guides online, I figure it's worth writing down how I approached this with Python, in part so I don't forget what I learned.
 (Most people seemed to use C++, because they're real programmers, or R, because they're fashionable.)
 
 If you want to decipher the ASD's encrypted messages yourself, stop reading and throw yourself into it!
 But if you lack time, learn from me.
-I wasted hours on the wrong ideas ([it looks like a Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) but it's not) and even more hours because of a typo in my code.
+I wasted hours on the wrong ideas (the coin [looks like a Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) but it's not) and even more hours because of a typo in my code.
 
 In fact, let's start by avoiding typos.
 These are error-free strings of the characters we can see on the tails side.
 
 ```python
-# code on the tails side (weights are coded as 1=light, 2=striped, 3=dark)
+# encrypted messages on the tails side (weights are coded as 1=light, 2=striped, 3=dark)
 
 outer_ring_characters = "DVZIVZFWZXRLFHRMXLMXVKGZMWNVGRXFOLFHRMVCVXFGRLM.URMWXOZIRGBRM7DRWGSC5WVKGS."
 outer_ring_weights = "311112111132333312113332213323332133323123133213332323132123113231231321312"
@@ -86,13 +85,24 @@ In other words, it's highly likely that the Braille is a numeric code (`326154`)
 
 So, what's it mean?
 We have `BTHASA` aligned with `326154` &hellip; a sequence?
-But if we rearrange the letters in the order of the numbers, we get a nonsense word: `ATBASH`.
+But if we rearrange the letters in the order of the numbers, we get a nonsense word:
 
-[Or is it nonsense](https://en.wikipedia.org/wiki/Atbash)? No, it's a clue! (Thanks again, Wikipedia.)
+```python
+brail_letters = "BTHASA"
+brail_numbers = "326154"
+brail_clue = "".join([brail_letters[brail_numbers.index(str(i))] for i in range(1, 7)])
+print(brail_clue)
+```
+
+    ATBASH
+
+Is it really a nonsense word, though? [No, it's a clue](https://en.wikipedia.org/wiki/Atbash)! (Thanks again, Wikipedia.)
+
+(Yes, pen and paper would have been much faster than the Python above.) 
 
 ## Puzzle 2: Atbash cipher
 
-The Atbash cipher is an ancient, and very simple, encryption method that was first used to conceal messages written in Hebrew.
+The Atbash cipher is an ancient encryption method that was first used to conceal messages written in Hebrew.
 But it can be applied to any sequentially ordered alphabet.
 This is how it would normally be used in English messages:
 
@@ -100,7 +110,32 @@ This is how it would normally be used in English messages:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Cipher | Z | Y | X | W | V | U | T | S | R | Q | P | O | N | M | L | K | J | I | H | G | F | E | D | C | B | A |
 
-So `MARKUS` would be written 
+So `MARKUS` would be encrypted as `NZIPFH`.
+
+This is extremely simple &hellip; too simple for ASD? Let's go back to the tails side of the coin and try it, starting with the outside ring:
+
+```python
+# NB This solves simple strings of upper-case Roman characters only
+
+def atbash_cipher(code):
+    '''A function to decipher Atbash-encoded strings'''
+    letters = string.ascii_uppercase
+    decoded_message = "".join([(letters[-letters.index(x) - 1] if x in letters else x) for x in code])
+    return decoded_message
+
+# decode the outer ring message
+print(atbash_cipher(outer_ring_characters))
+```
+
+    WEAREAUDACIOUSINCONCEPTANDMETICULOUSINEXECUTION.FINDCLARITYIN7WIDTHX5DEPTH.
+
+Worked first time! It looks like we got two messages out of this:
+
+> We are audacious in concept and meticulous in execution.
+
+Hmm, very corporate. But we also decoded a clue:
+
+>
 
 
 
