@@ -308,14 +308,17 @@ We did it! Our efforts yielded another corporate message!
 
 ## Epilogue: A fifth puzzle?
 
-A day after releasing the coin, the ASD announced that it contained a *bonus* hidden message.
+A day after releasing the coin, the ASD announced that [it contained a *bonus* hidden message](https://www.abc.net.au/news/2022-09-02/asd-50-cent-code-cracked-by-14yo-tasmanian-boy/101401978).
 I'm not particularly keen to read it, as it's almost certainly written in LinkedIn-speak like the other messages.
 But cracking it should be fun.
 
-Where to start? One obvious place is the series of strange characters at the base of the coin's tails side:
+The question is: Where to start? One obvious place is the series of strange characters at the base of the coin's tails side:
 
-![A series of strange characters]()
+![A series of strange characters](./media/codelogo.jpg)
 
-However, if you look at the bottom of the ASD website, this is simply what the agency calls its "code logo".
+However, if you look at [the bottom of the ASD website](https://www.asd.gov.au/), this is simply what the agency calls its "code logo".
+
 Does it mean anything?
-Is it perhaps a key to solve the mystery of the differently weighted characters in the 
+Is it perhaps a key to solve the mystery of the differently weighted characters in the outer ring?
+
+I am entirely out of ideas, but I'll update this page if I find out.
