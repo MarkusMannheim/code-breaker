@@ -324,4 +324,6 @@ However, if you look at [the bottom of the ASD website](https://www.asd.gov.au/)
 Does it mean anything?
 Is it perhaps a key to solve the mystery of the differently weighted characters in the outer ring?
 
-I am entirely out of ideas, but I'll update this page if I find out.
+What about the three equal sectors that the coin is split into?
+
+I'm entirely out of ideas, but I'll update this page if I find out.
