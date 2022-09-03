@@ -274,7 +274,7 @@ print(len(hexcode))
 
    382
 
-Our key length is 5 (`A5D75`), so, even if we repeat it, it won't perfectly match the hex code we're trying to decrypt (length 382).
+Our key length is 5 (`A5D75`), so, even if we repeat it, it won't perfectly match the hex code we're trying to decrypt (which has a length 382).
 Our decryption function needs to respond to that.
 
 ```python
@@ -289,7 +289,8 @@ def xorhex_cipher(message, key):
     # apply XOR operation
     code = "%x" % (int(message[:len(key) * factor], 16) ^ int(key * repeat, 16))
     
-    if len(message) % repeat > 0: # is there leftover message?
+    # is there leftover message to en/decode?
+    if len(message) % repeat > 0:
         code = code + "%x" % (int(message[-(len(message) % repeat):], 16) ^ int(key[:len(message) % repeat], 16))
 
     return code
@@ -308,11 +309,11 @@ We did it! Our efforts yielded another corporate message!
 
 ## Epilogue: A fifth puzzle?
 
-A day after releasing the coin, the ASD announced that [it contained a *bonus* hidden message](https://www.abc.net.au/news/2022-09-02/asd-50-cent-code-cracked-by-14yo-tasmanian-boy/101401978).
+A day after releasing the coin, the ASD announced that [it contained a bonus message](https://www.abc.net.au/news/2022-09-02/asd-50-cent-code-cracked-by-14yo-tasmanian-boy/101401978).
 I'm not particularly keen to read it, as it's almost certainly written in LinkedIn-speak like the other messages.
 But cracking it should be fun.
 
-The question is: Where to start? One obvious place is the series of strange characters at the base of the coin's tails side:
+The question is: where to start? One apparent place is the series of strange characters at the base of the coin's tails side:
 
 ![A series of strange characters](./media/codelogo.jpg)
 
