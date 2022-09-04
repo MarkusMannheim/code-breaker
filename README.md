@@ -261,23 +261,13 @@ The final part of the clue, `A5D75`, is also hex code &mdash; and a cute way of 
 At this point, I'll spare you the several frustrated hours I spent reading about XOR and trying to decrypt code with a typo in it.
 This is what matters:
 
-1. XOR encryption usually involves a key (ours is `A5D75`) of length $x$, that is repeated until it matches, or almost matches, the length of the encrypted message.
+1. XOR encryption usually involves a key (ours is `A5D75`) that is repeated until it matches the length of the encrypted message.
 This repeated key (e.g. `A5D75A5D75A5D75...`) is used as a XOR cipher to decode a section of the message of matching length.
-If part of the message is left over &mdash; of length $y$, where $y \lt x$ &mdash; then a $y$-length piece of the key is used to decode this remaining piece.
 
 2. Every example of a Python XOR cipher that I found was deprecated (Python 2 only), unable to work with hex code, and/or overly complex.
-So I had to write my own.
+So I wrote my own.
 
-Let's have a look at the hex code in the centre of the coin:
-
-```python
-print(len(hexcode))
-```
-
-   382
-
-Our key length is 5 (`A5D75`), so, even if we repeat it, it won't perfectly match the hex code we're trying to decrypt (which has a length of 382).
-Our decryption function needs to respond to that.
+Here's the decryption function (by the way, it's the same as an encryption function):
 
 ```python
 # XOR cipher for hexademical code
@@ -297,7 +287,7 @@ def xorhex_cipher(message, key):
 
     return code
 
-decoded_message = xorhex_cipher(hexcode, "A5D75)
+decoded_message = xorhex_cipher(hexcode, "A5D75")
 
 # print as readable text (hex to bytes)
 print(bytes.fromhex(decoded_message).decode())
