@@ -289,7 +289,7 @@ def xorhex_cipher(message, key):
     repeat = len(message) // len(key)
     
     # apply XOR operation
-    code = "%x" % (int(message[:len(key) * factor], 16) ^ int(key * repeat, 16))
+    code = "%x" % (int(message[:len(key) * repeat], 16) ^ int(key * repeat, 16))
     
     # is there leftover message to encode/decode?
     if len(message) % repeat > 0:
@@ -297,7 +297,7 @@ def xorhex_cipher(message, key):
 
     return code
 
-decoded_message = hexxor(hexcode, hexkey)
+decoded_message = xorhex_cipher(hexcode, "A5D75)
 
 # print as readable text (hex to bytes)
 print(bytes.fromhex(decoded_message).decode())
