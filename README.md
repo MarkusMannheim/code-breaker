@@ -275,15 +275,11 @@ def xorhex_cipher(message, key):
     '''XOR cipher for hex-encoded messages and keys that
     outputs a hex-encoded result (encryption or decryption)'''
     
-    # how many times key must be repeated
-    repeat = len(message) // len(key)
+    code = "" # empty string to store encoded/decoded hex
     
-    # apply XOR operation
-    code = "%x" % (int(message[:len(key) * repeat], 16) ^ int(key * repeat, 16))
-    
-    # is there leftover message to encode/decode?
-    if len(message) % repeat > 0:
-        code = code + "%x" % (int(message[-(len(message) % repeat):], 16) ^ int(key[:len(message) % repeat], 16))
+    # interate through message, applying XOR operation
+    for i in range(len(message)):
+        code = code + "%x" % (int(message[i], 16) ^ int(key[i % len(key)], 16))
 
     return code
 
