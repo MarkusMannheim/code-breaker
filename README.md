@@ -256,7 +256,7 @@ Scan the small characters in the centre of the coin: they're mostly numbers, wit
 However, you'll note that only six letters are used: `A` through to `F`.
 So, 10 digits plus six letters makes 16 characters: all those characters are almost certainly a base 16 numeric code &mdash; another way of saying hexademical code.
 
-The final part of the clue, `A5D75`, is also hex code &mdash; and a cute way of writing ASD75 (happy birthday, ASD!).
+The final part of the clue, `A5D75`, is also hex code (and a way of writing ASD75 in hex).
 
 At this point, I'll spare you the several frustrated hours I spent reading about XOR and trying to decrypt code with a typo in it.
 This is what matters:
